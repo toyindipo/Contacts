@@ -1,0 +1,53 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+	}
+}
+
+apply plugin: 'war'
+apply plugin: 'spring-boot'
+// we need to use war plugin
+
+//default webAppDirName in gradle is not "WebContent" but 
+// it is default in eclise so change it according to eclipse layout
+// it encapsulates all files under webAppDirName
+webAppDirName = 'WebContent'
+
+// src is not default java source dir in gradle 
+// so change srcDir and resources srcDir 
+//according to eclipse project layout
+
+sourceSets {
+  main {
+     java {
+	      srcDir 'src'
+     }
+     resources {
+       srcDir 'src'
+     }
+  } 
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-jdbc")
+	compile("org.thymeleaf:thymeleaf-spring4:3.0.0.RELEASE")
+	compile ('org.thymeleaf:thymeleaf:3.0.1.RELEASE')
+	compile("org.thymeleaf:thymeleaf-spring4")
+	compile("com.h2database:h2")
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.3.1'
+}
